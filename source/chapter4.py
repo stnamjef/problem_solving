@@ -56,7 +56,47 @@ def q3():
     print(count)
 
 
+def q4():
+    N, M = map(int, input().split())
+    y, x, d = map(int, input().split())
+
+    moves = [[-1, 0], [0, 1], [1, 0], [0, -1]]
+    mat = [list(map(int, input().split())) for _ in range(N)]
+
+    count = 0
+    while True:
+        moved = False
+        for _ in range(4):
+            # get next position
+            i = y + moves[d][0]
+            j = x + moves[d][1]
+            # if not visited, then move
+            if mat[i][j] == 0:
+                mat[y][x] = -1
+                count += 1
+                y, x = i, j
+                moved = True
+                break
+            # rotate d
+            d = (d + 1) % 4
+        # if all visited, then consider backward
+        if not moved:
+            temp_d = (d + 2) % 4
+            i = y + moves[temp_d][0]
+            j = x + moves[temp_d][1]
+            # if not sea, then move backward
+            if mat[i][j] != 1:
+                mat[y][x] = -1
+                count += 1
+                y, x = i, j
+            else:
+                break
+    
+    print(count)
+
+
 if __name__ == '__main__':
     # q1()
     # q2()
-    q3()
+    # q3()
+    q4()
