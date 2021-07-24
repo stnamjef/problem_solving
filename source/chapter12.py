@@ -26,6 +26,28 @@ def q2():
     print(''.join(strs) + str(num))
 
 
+
+def q3():
+    S = list(input())
+    N = len(S)
+
+    lengths = []
+    for n in range(1, N // 2 + 1):
+        length = 0
+        count, string = 1, S[:n]
+        for i in range(n, N - N % n, n):
+            if S[i:i + n] == string:
+                count += 1
+            else:
+                length = length + n if count == 1 else length + n + len(str(count))
+                count, string = 1, S[i:i + n]
+        length = length + n + (N % n) if count == 1 else length + n + len(str(count))
+        lengths.append(length)
+    
+    print(min(lengths))
+
+
 if __name__ == '__main__':
     # q1()
-    q2()
+    # q2()
+    q3()
